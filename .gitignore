@@ -1,0 +1,28 @@
+# Visual Studio / MSBuild
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet
+packages/
+*.nupkg
+!packages.config
+
+# ASP.NET
+App_Data/*.mdf
+App_Data/*.ldf
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,31 @@
+@model NektarPodgorine.Web.Models.ViewModels.ManageIndexViewModel
+@{
+    ViewBag.Title = "Moj profil";
+}
+
+<h1 class="mb-4">Moj profil</h1>
+
+@if (TempData["Status"] != null)
+{
+    <div class="alert alert-success">@TempData["Status"]</div>
+}
+
+<dl class="row">
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Ime i prezime</dt>
+    <dd class="col-sm-9">@Model.FullName</dd>
+
+    <dt class="col-sm-3">Telefon</dt>
+    <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.PhoneNumber) ? "—" : Model.PhoneNumber)</dd>
+
+    <dt class="col-sm-3">Član od</dt>
+    <dd class="col-sm-9">@Model.CreatedAt.ToString("dd.MM.yyyy.")</dd>
+</dl>
+
+<div class="d-flex gap-2">
+    @Html.ActionLink("Izmeni profil", "EditProfile", null, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Promeni lozinku", "ChangePassword", null, new { @class = "btn btn-outline-dark" })
+    @Html.ActionLink("Moje recenzije", "MojeRecenzije", null, new { @class = "btn btn-outline-dark" })
+</div>

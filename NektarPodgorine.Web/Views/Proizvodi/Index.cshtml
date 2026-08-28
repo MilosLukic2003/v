@@ -1,0 +1,55 @@
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.Proizvod>
+@{
+    ViewBag.Title = "Proizvodi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Proizvodi</h1>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Novi proizvod", "Create", null, new { @class = "btn btn-warning" })
+    }
+</div>
+
+@using (Html.BeginForm("Index", "Proizvodi", FormMethod.Get, new { @class = "row g-2 mb-4" }))
+{
+    <div class="col-auto">
+        @Html.DropDownList("kategorijaId", ViewBag.Kategorije as SelectList, "Sve kategorije", new { @class = "form-select", onchange = "this.form.submit()" })
+    </div>
+    <noscript><div class="col-auto"><button type="submit" class="btn btn-outline-dark">Filtriraj</button></div></noscript>
+}
+
+@if (!Model.Any())
+{
+    <p>Nema proizvoda za prikaz.</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var p in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    @if (!string.IsNullOrEmpty(p.ImageUrl))
+                    {
+                        <img src="@p.ImageUrl" class="card-img-top" alt="@p.Naziv" style="height:180px;object-fit:cover;" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@p.Naziv</h5>
+                        <p class="card-text text-muted mb-1">@(p.Kategorija != null ? p.Kategorija.Naziv : "")</p>
+                        <p class="card-text fw-bold">@p.Cena.ToString("0.00") RSD / @p.JedinicaMere</p>
+                        <p class="card-text"><small>Na stanju: @p.KolicinaNaStanju @p.JedinicaMere</small></p>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex gap-2">
+                        @Html.ActionLink("Detalji", "Details", new { id = p.Id }, new { @class = "btn btn-sm btn-outline-dark" })
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Izmeni", "Edit", new { id = p.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                            @Html.ActionLink("Obriši", "Delete", new { id = p.Id }, new { @class = "btn btn-sm btn-outline-danger" })
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

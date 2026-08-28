@@ -1,0 +1,28 @@
+@model NektarPodgorine.Web.Models.Proizvod
+@{
+    ViewBag.Title = "Brisanje proizvoda";
+}
+
+<h1 class="mb-4">Brisanje proizvoda</h1>
+
+<div class="alert alert-danger">Da li ste sigurni da želite da obrišete ovaj proizvod? Sve pripadajuće recenzije će takođe biti obrisane.</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Naziv</dt>
+    <dd class="col-sm-9">@Model.Naziv</dd>
+
+    <dt class="col-sm-3">Kategorija</dt>
+    <dd class="col-sm-9">@(Model.Kategorija != null ? Model.Kategorija.Naziv : "—")</dd>
+
+    <dt class="col-sm-3">Cena</dt>
+    <dd class="col-sm-9">@Model.Cena.ToString("0.00") RSD / @Model.JedinicaMere</dd>
+</dl>
+
+@using (Html.BeginForm("Delete", "Proizvodi", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">Obriši</button>
+        @Html.ActionLink("Odustani", "Details", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
+    </div>
+}

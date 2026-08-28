@@ -1,0 +1,26 @@
+@model NektarPodgorine.Web.Models.ViewModels.ProizvodEditVM
+@{
+    ViewBag.Title = "Izmena proizvoda";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">Izmena proizvoda</h1>
+
+        @using (Html.BeginForm("Edit", "Proizvodi", FormMethod.Post, new { @class = "card card-body" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            @Html.Partial("_ProizvodFields", (NektarPodgorine.Web.Models.ViewModels.ProizvodCreateVM)Model)
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning">Sačuvaj izmene</button>
+                @Html.ActionLink("Odustani", "Details", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

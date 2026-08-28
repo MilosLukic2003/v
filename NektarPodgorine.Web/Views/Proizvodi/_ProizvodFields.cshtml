@@ -1,0 +1,45 @@
+@model NektarPodgorine.Web.Models.ViewModels.ProizvodCreateVM
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Naziv, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.Naziv, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Naziv, "", new { @class = "text-danger" })
+</div>
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Opis, new { @class = "form-label" })
+    @Html.TextAreaFor(m => m.Opis, new { @class = "form-control", rows = 4 })
+    @Html.ValidationMessageFor(m => m.Opis, "", new { @class = "text-danger" })
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        @Html.LabelFor(m => m.Cena, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.Cena, new { @class = "form-control", type = "number", step = "0.01" })
+        @Html.ValidationMessageFor(m => m.Cena, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-4 mb-3">
+        @Html.LabelFor(m => m.JedinicaMere, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.JedinicaMere, new { @class = "form-control", placeholder = "kg, g, ml" })
+        @Html.ValidationMessageFor(m => m.JedinicaMere, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-4 mb-3">
+        @Html.LabelFor(m => m.KolicinaNaStanju, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.KolicinaNaStanju, new { @class = "form-control", type = "number" })
+        @Html.ValidationMessageFor(m => m.KolicinaNaStanju, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.KategorijaId, new { @class = "form-label" })
+    @Html.DropDownListFor(m => m.KategorijaId, ViewBag.Kategorije as SelectList, "-- izaberite kategoriju --", new { @class = "form-select" })
+    @Html.ValidationMessageFor(m => m.KategorijaId, "", new { @class = "text-danger" })
+</div>
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.ImageUrl, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+</div>

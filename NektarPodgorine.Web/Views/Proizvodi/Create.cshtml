@@ -1,0 +1,25 @@
+@model NektarPodgorine.Web.Models.ViewModels.ProizvodCreateVM
+@{
+    ViewBag.Title = "Novi proizvod";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">Novi proizvod</h1>
+
+        @using (Html.BeginForm("Create", "Proizvodi", FormMethod.Post, new { @class = "card card-body" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Partial("_ProizvodFields", Model)
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning">Sačuvaj</button>
+                @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

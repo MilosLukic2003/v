@@ -7,9 +7,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace NektarPodgorine.Web.Models
 {
-    // Prošireni korisnik aplikacije. IdentityUser već sadrži UserName, Email,
-    // PasswordHash, PhoneNumber i PhoneNumberConfirmed, pa ovde dodajemo samo
-    // dodatna polja specifična za gazdinstvo "Nektar Podgorine".
     public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; }
@@ -18,9 +15,7 @@ namespace NektarPodgorine.Web.Models
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            // Napomena: authenticationType mora da se poklapa sa onim definisanim u CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Ovde dodati custom claim-ove po potrebi
             return userIdentity;
         }
     }
@@ -32,8 +27,15 @@ namespace NektarPodgorine.Web.Models
         {
         }
 
-        // DbSet-ovi za domenske entitete (Proizvod, KategorijaProizvoda, Pcelinjak,
-        // Recenzija, Vest ...) dodaju se u Fazi 2.
+        public DbSet<KategorijaProizvoda> Kategorije { get; set; }
+
+        public DbSet<Proizvod> Proizvodi { get; set; }
+
+        public DbSet<Pcelinjak> Pcelinjaci { get; set; }
+
+        public DbSet<Recenzija> Recenzije { get; set; }
+
+        public DbSet<Vest> Vesti { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -43,7 +45,42 @@ namespace NektarPodgorine.Web.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Fluent API konfiguracija relacija dolazi u Fazi 2.
+
+            modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Proizvod>()
+                .Property(p => p.Cena)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Proizvod>()
+                .HasRequired(p => p.Kategorija)
+                .WithMany(k => k.Proizvodi)
+                .HasForeignKey(p => p.KategorijaId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Proizvod>()
+                .HasOptional(p => p.Kreirao)
+                .WithMany()
+                .HasForeignKey(p => p.KreiraoId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Recenzija>()
+                .HasRequired(r => r.Proizvod)
+                .WithMany(p => p.Recenzije)
+                .HasForeignKey(r => r.ProizvodId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Recenzija>()
+                .HasRequired(r => r.Korisnik)
+                .WithMany()
+                .HasForeignKey(r => r.KorisnikId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Vest>()
+                .HasOptional(v => v.Autor)
+                .WithMany()
+                .HasForeignKey(v => v.AutorId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

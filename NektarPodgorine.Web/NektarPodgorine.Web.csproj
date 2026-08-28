@@ -156,7 +156,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Migrations\202608280900000_InitialCreate.cs" />
+    <Compile Include="Migrations\202608280900000_InitialCreate.Designer.cs">
+      <DependentUpon>202608280900000_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\KategorijaProizvoda.cs" />
+    <Compile Include="Models\Pcelinjak.cs" />
+    <Compile Include="Models\Proizvod.cs" />
+    <Compile Include="Models\Recenzija.cs" />
+    <Compile Include="Models\Vest.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -215,6 +225,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202608280900000_InitialCreate.resx">
+      <DependentUpon>202608280900000_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

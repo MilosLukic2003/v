@@ -19,9 +19,6 @@ namespace NektarPodgorine.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            // Bootstrap 5 – bundle verzija uključuje i Popper (potreban za dropdown, tooltip...).
-            // Koristi se osnovni Bundle (bez minifikacije) jer stari WebGrease/AjaxMin
-            // minifier ne ume da parsira moderni ES sintaksu Bootstrap-a 5.
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.bundle.min.js"));
 

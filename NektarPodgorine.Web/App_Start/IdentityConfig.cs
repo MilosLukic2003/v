@@ -10,7 +10,6 @@ using NektarPodgorine.Web.Models;
 
 namespace NektarPodgorine.Web
 {
-    // Konfiguriše ASP.NET Identity za ovu aplikaciju.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -22,14 +21,12 @@ namespace NektarPodgorine.Web
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
 
-            // Pravila validacije korisničkog imena
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
 
-            // Pravila kompleksnosti lozinke
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 8,
@@ -39,12 +36,10 @@ namespace NektarPodgorine.Web
                 RequireUppercase = true
             };
 
-            // Zaključavanje naloga nakon uzastopnih neuspešnih prijava
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-            // Two-factor / email / sms provajderi (nisu obavezni za Fazu 1)
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
 
@@ -62,7 +57,6 @@ namespace NektarPodgorine.Web
         }
     }
 
-    // RoleManager za role "User" i "Admin" (seed u Fazi 2).
     public class ApplicationRoleManager : RoleManager<IdentityRole>
     {
         public ApplicationRoleManager(IRoleStore<IdentityRole, string> roleStore)
@@ -94,7 +88,6 @@ namespace NektarPodgorine.Web
         }
     }
 
-    // Placeholder servisi – prava implementacija (SMTP / SMS gateway) nije deo Faze 1.
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)

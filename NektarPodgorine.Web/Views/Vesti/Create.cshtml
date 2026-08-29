@@ -1,0 +1,25 @@
+@model NektarPodgorine.Web.Models.ViewModels.VestCreateVM
+@{
+    ViewBag.Title = "Nova vest";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">Nova vest</h1>
+
+        @using (Html.BeginForm("Create", "Vesti", FormMethod.Post, new { @class = "card card-body" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Partial("_VestFields", Model)
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning">Objavi</button>
+                @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

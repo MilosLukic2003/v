@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity.Owin;
+using NektarPodgorine.Web.Models;
 
 namespace NektarPodgorine.Web.Controllers
 {
@@ -10,7 +12,13 @@ namespace NektarPodgorine.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            var najnovije = db.Vesti
+                .OrderByDescending(v => v.DatumObjave)
+                .Take(3)
+                .ToList();
+
+            return View(najnovije);
         }
 
         public ActionResult About()

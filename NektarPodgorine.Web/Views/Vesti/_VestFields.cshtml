@@ -1,0 +1,21 @@
+@model NektarPodgorine.Web.Models.ViewModels.VestCreateVM
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Naslov, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.Naslov, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Naslov, "", new { @class = "text-danger" })
+</div>
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.ImageUrl, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+</div>
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Sadrzaj, new { @class = "form-label" })
+    @Html.TextAreaFor(m => m.Sadrzaj, new { @class = "form-control", rows = 10 })
+    @Html.ValidationMessageFor(m => m.Sadrzaj, "", new { @class = "text-danger" })
+</div>

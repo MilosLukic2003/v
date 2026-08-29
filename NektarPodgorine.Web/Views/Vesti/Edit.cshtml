@@ -1,0 +1,26 @@
+@model NektarPodgorine.Web.Models.ViewModels.VestEditVM
+@{
+    ViewBag.Title = "Izmena vesti";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">Izmena vesti</h1>
+
+        @using (Html.BeginForm("Edit", "Vesti", FormMethod.Post, new { @class = "card card-body" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            @Html.Partial("_VestFields", (NektarPodgorine.Web.Models.ViewModels.VestCreateVM)Model)
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning">Sačuvaj izmene</button>
+                @Html.ActionLink("Odustani", "Details", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

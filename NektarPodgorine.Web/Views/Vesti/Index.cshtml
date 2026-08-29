@@ -1,0 +1,42 @@
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.Vest>
+@{
+    ViewBag.Title = "Vesti";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Vesti</h1>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Nova vest", "Create", null, new { @class = "btn btn-warning" })
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <p>Trenutno nema objavljenih vesti.</p>
+}
+else
+{
+    foreach (var vest in Model)
+    {
+        <article class="mb-4 pb-3 border-bottom">
+            <h2 class="h4">@Html.ActionLink(vest.Naslov, "Details", new { id = vest.Id })</h2>
+            <p class="text-muted mb-2">
+                @vest.DatumObjave.ToString("dd.MM.yyyy.")
+                @if (vest.Autor != null)
+                {
+                    <text> · @(vest.Autor.FullName ?? vest.Autor.Email)</text>
+                }
+            </p>
+            <p>@(vest.Sadrzaj.Length > 300 ? vest.Sadrzaj.Substring(0, 300) + "…" : vest.Sadrzaj)</p>
+            <div class="d-flex gap-2">
+                @Html.ActionLink("Pročitaj više", "Details", new { id = vest.Id }, new { @class = "btn btn-sm btn-outline-dark" })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Izmeni", "Edit", new { id = vest.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                    @Html.ActionLink("Obriši", "Delete", new { id = vest.Id }, new { @class = "btn btn-sm btn-outline-danger" })
+                }
+            </div>
+        </article>
+    }
+}

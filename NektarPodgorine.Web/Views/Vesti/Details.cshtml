@@ -1,0 +1,37 @@
+@model NektarPodgorine.Web.Models.Vest
+@{
+    ViewBag.Title = Model.Naslov;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">@Html.ActionLink("Vesti", "Index")</li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Naslov</li>
+    </ol>
+</nav>
+
+<article>
+    <h1>@Model.Naslov</h1>
+    <p class="text-muted">
+        @Model.DatumObjave.ToString("dd.MM.yyyy.")
+        @if (Model.Autor != null)
+        {
+            <text> · @(Model.Autor.FullName ?? Model.Autor.Email)</text>
+        }
+    </p>
+
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" class="img-fluid rounded mb-3" alt="@Model.Naslov" />
+    }
+
+    <div style="white-space: pre-line;">@Model.Sadrzaj</div>
+</article>
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="d-flex gap-2 mt-4">
+        @Html.ActionLink("Izmeni", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
+        @Html.ActionLink("Obriši", "Delete", new { id = Model.Id }, new { @class = "btn btn-outline-danger" })
+    </div>
+}

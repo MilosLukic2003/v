@@ -1,33 +1,50 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.Vest>
+@{
+    ViewBag.Title = "Početna";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<div class="p-5 mb-4 bg-light rounded-3">
+    <h1>Pčelarsko gazdinstvo „Nektar Podgorine"</h1>
+    <p class="lead">
+        Prirodan med i pčelinji proizvodi sa pčelinjaka u Podgorini. Bagremov i livadski med,
+        propolis, polen i matičnji mleč — direktno od pčelara.
+    </p>
+    <p>
+        @Html.ActionLink("Pogledaj proizvode", "Index", "Proizvodi", null, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Naši pčelinjaci", "Index", "Pcelinjaci", null, new { @class = "btn btn-outline-dark" })
+    </p>
+</div>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Najnovije iz gazdinstva</h2>
+    @Html.ActionLink("Sve vesti", "Index", "Vesti")
+</div>
+
+@if (!Model.Any())
+{
+    <p>Još nema objavljenih vesti.</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var vest in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    @if (!string.IsNullOrEmpty(vest.ImageUrl))
+                    {
+                        <img src="@vest.ImageUrl" class="card-img-top" alt="@vest.Naslov" style="height:160px;object-fit:cover;" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@vest.Naslov</h5>
+                        <p class="card-text text-muted"><small>@vest.DatumObjave.ToString("dd.MM.yyyy.")</small></p>
+                        <p class="card-text">@(vest.Sadrzaj.Length > 140 ? vest.Sadrzaj.Substring(0, 140) + "…" : vest.Sadrzaj)</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        @Html.ActionLink("Pročitaj više", "Details", "Vesti", new { id = vest.Id }, new { @class = "btn btn-sm btn-outline-dark" })
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-</main>
+}

@@ -120,6 +120,23 @@ namespace NektarPodgorine.Web.Migrations
                     GeografskaDuzina = 19.6833
                 });
 
+            context.Vesti.AddOrUpdate(
+                v => v.Naslov,
+                new Vest
+                {
+                    Naslov = "Prolećni pregled košnica",
+                    Sadrzaj = "Sa prvim toplijim danima obavili smo prvi pregled košnica. Sve zajednice su prezimile, matice su prisutne i leglo se lepo razvija. Sledi prihrana i priprema za bagremovu pašu.",
+                    DatumObjave = new DateTime(2026, 3, 18),
+                    AutorId = admin != null ? admin.Id : null
+                },
+                new Vest
+                {
+                    Naslov = "Vrcanje bagremovog meda 2026",
+                    Sadrzaj = "Bagremova paša je ove godine bila kratka ali izdašna. Med je svetao, bistar i sporo kristališe. Novo vrcanje već je dostupno u prodaji, direktno sa pčelinjaka.",
+                    DatumObjave = new DateTime(2026, 5, 22),
+                    AutorId = admin != null ? admin.Id : null
+                });
+
             context.SaveChanges();
         }
     }

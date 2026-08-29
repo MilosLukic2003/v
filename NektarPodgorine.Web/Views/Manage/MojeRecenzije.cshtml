@@ -11,23 +11,41 @@
 }
 else
 {
-    <table class="table">
+    <table class="table align-middle">
         <thead>
             <tr>
                 <th>Proizvod</th>
                 <th>Ocena</th>
                 <th>Komentar</th>
                 <th>Datum</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var r in Model)
             {
                 <tr>
-                    <td>@(r.Proizvod != null ? r.Proizvod.Naziv : "—")</td>
+                    <td>
+                        @if (r.Proizvod != null)
+                        {
+                            @Html.ActionLink(r.Proizvod.Naziv, "Details", "Proizvodi", new { id = r.ProizvodId }, null)
+                        }
+                        else
+                        {
+                            <text>—</text>
+                        }
+                    </td>
                     <td>@r.Ocena / 5</td>
                     <td>@r.Sadrzaj</td>
                     <td>@r.DatumKreiranja.ToString("dd.MM.yyyy.")</td>
+                    <td class="text-nowrap">
+                        @Html.ActionLink("Izmeni", "Edit", "Recenzije", new { id = r.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                        @using (Html.BeginForm("Delete", "Recenzije", new { id = r.Id }, FormMethod.Post, new { @class = "d-inline", onsubmit = "return confirm('Obrisati recenziju?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

@@ -1,8 +1,11 @@
+@using Microsoft.AspNet.Identity
 @model NektarPodgorine.Web.Models.Proizvod
 @{
     ViewBag.Title = Model.Naziv;
-    var recenzije = Model.Recenzije ?? new System.Collections.Generic.List<NektarPodgorine.Web.Models.Recenzija>();
+    var recenzije = (Model.Recenzije ?? new List<NektarPodgorine.Web.Models.Recenzija>()).OrderByDescending(r => r.DatumKreiranja).ToList();
     var prosek = recenzije.Any() ? recenzije.Average(r => r.Ocena) : (double?)null;
+    var mojId = Request.IsAuthenticated ? User.Identity.GetUserId() : null;
+    var mojaRecenzija = mojId != null ? recenzije.FirstOrDefault(r => r.KorisnikId == mojId) : null;
 }
 
 <nav aria-label="breadcrumb">
@@ -46,11 +49,17 @@
 <hr />
 
 <h2>Recenzije</h2>
+
+@if (TempData["Poruka"] != null)
+{
+    <div class="alert alert-info">@TempData["Poruka"]</div>
+}
+
 <p>
     @if (prosek.HasValue)
     {
         <span class="fs-5">Prosečna ocena: <strong>@prosek.Value.ToString("0.0")</strong> / 5</span>
-        <span class="text-muted">(@recenzije.Count() @(recenzije.Count() == 1 ? "recenzija" : "recenzija"))</span>
+        <span class="text-muted">(@recenzije.Count)</span>
     }
     else
     {
@@ -58,8 +67,10 @@
     }
 </p>
 
-@foreach (var r in recenzije.OrderByDescending(r => r.DatumKreiranja))
+@foreach (var r in recenzije)
 {
+    var moja = r.KorisnikId == mojId;
+    var smemObrisati = moja || User.IsInRole("Admin");
     <div class="card mb-2">
         <div class="card-body">
             <div class="d-flex justify-content-between">
@@ -68,11 +79,59 @@
             </div>
             <p class="mb-1">@r.Sadrzaj</p>
             <small class="text-muted">@r.DatumKreiranja.ToString("dd.MM.yyyy.")</small>
+
+            @if (smemObrisati)
+            {
+                <div class="mt-2 d-flex gap-2">
+                    @if (moja)
+                    {
+                        @Html.ActionLink("Izmeni", "Edit", "Recenzije", new { id = r.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                    }
+                    using (Html.BeginForm("Delete", "Recenzije", new { id = r.Id }, FormMethod.Post, new { onsubmit = "return confirm('Obrisati recenziju?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                    }
+                </div>
+            }
         </div>
     </div>
 }
 
-@if (!Request.IsAuthenticated)
+@if (mojaRecenzija != null)
+{
+    <p class="mt-3">Već ste ocenili ovaj proizvod. @Html.ActionLink("Izmenite svoju recenziju", "Edit", "Recenzije", new { id = mojaRecenzija.Id }, null).</p>
+}
+else if (Request.IsAuthenticated)
+{
+    <div class="card card-body mt-3">
+        <h3 class="h5">Ostavite recenziju</h3>
+        @using (Html.BeginForm("Create", "Recenzije", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="ProizvodId" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label class="form-label" for="Ocena">Ocena</label>
+                <select class="form-select w-auto" id="Ocena" name="Ocena">
+                    <option value="5">5 - odlično</option>
+                    <option value="4">4 - vrlo dobro</option>
+                    <option value="3">3 - dobro</option>
+                    <option value="2">2 - loše</option>
+                    <option value="1">1 - vrlo loše</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="Sadrzaj">Komentar</label>
+                <textarea class="form-control" id="Sadrzaj" name="Sadrzaj" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-warning">Pošalji</button>
+        }
+    </div>
+}
+else
 {
     <p class="mt-3">@Html.ActionLink("Prijavite se", "Login", "Account") da biste ostavili recenziju.</p>
 }

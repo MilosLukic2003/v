@@ -1,0 +1,41 @@
+@model NektarPodgorine.Web.Models.ViewModels.RecenzijaEditVM
+@{
+    ViewBag.Title = "Izmena recenzije";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <h1 class="mb-1">Izmena recenzije</h1>
+        <p class="text-muted">@Model.ProizvodNaziv</p>
+
+        @using (Html.BeginForm("Edit", "Recenzije", FormMethod.Post, new { @class = "card card-body" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.ProizvodId)
+            @Html.HiddenFor(m => m.ProizvodNaziv)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Ocena, new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.Ocena, new SelectList(new[] { 1, 2, 3, 4, 5 }, Model.Ocena), new { @class = "form-select w-auto" })
+                @Html.ValidationMessageFor(m => m.Ocena, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Sadrzaj, new { @class = "form-label" })
+                @Html.TextAreaFor(m => m.Sadrzaj, new { @class = "form-control", rows = 4 })
+                @Html.ValidationMessageFor(m => m.Sadrzaj, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning">Sačuvaj</button>
+                @Html.ActionLink("Odustani", "Details", "Proizvodi", new { id = Model.ProizvodId }, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

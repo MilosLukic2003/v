@@ -159,6 +159,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProizvodiController.cs" />
+    <Compile Include="Controllers\RecenzijeController.cs" />
     <Compile Include="Migrations\202608280900000_InitialCreate.cs" />
     <Compile Include="Migrations\202608280900000_InitialCreate.Designer.cs">
       <DependentUpon>202608280900000_InitialCreate.cs</DependentUpon>
@@ -173,6 +174,7 @@
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ProizvodViewModels.cs" />
+    <Compile Include="Models\ViewModels\RecenzijaViewModels.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -243,6 +245,7 @@
     <Content Include="Views\Proizvodi\Edit.cshtml" />
     <Content Include="Views\Proizvodi\Delete.cshtml" />
     <Content Include="Views\Proizvodi\_ProizvodFields.cshtml" />
+    <Content Include="Views\Recenzije\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202608280900000_InitialCreate.resx">

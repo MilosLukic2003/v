@@ -22,6 +22,18 @@
                         <li class="nav-item">@Html.ActionLink("Proizvodi", "Index", "Proizvodi", new { area = "" }, new { @class = "nav-link" })</li>
                         <li class="nav-item">@Html.ActionLink("Vesti", "Index", "Vesti", new { area = "" }, new { @class = "nav-link" })</li>
                         <li class="nav-item">@Html.ActionLink("Pčelinjaci", "Index", "Pcelinjaci", new { area = "" }, new { @class = "nav-link" })</li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administracija</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Korisnici", "Index", "AdminUsers", new { area = "Admin" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Proizvodi", "Index", "AdminProizvodi", new { area = "Admin" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Kategorije", "Kategorije", "AdminProizvodi", new { area = "Admin" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Recenzije", "Index", "AdminRecenzije", new { area = "Admin" }, new { @class = "dropdown-item" })</li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>

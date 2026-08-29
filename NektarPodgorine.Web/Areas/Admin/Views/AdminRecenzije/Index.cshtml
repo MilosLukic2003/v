@@ -1,0 +1,57 @@
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.Recenzija>
+@{
+    ViewBag.Title = "Recenzije";
+}
+
+<h1 class="mb-4">Recenzije</h1>
+
+@Html.Partial("_AdminMenu")
+
+@if (!Model.Any())
+{
+    <p>Nema recenzija.</p>
+}
+else
+{
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th>Proizvod</th>
+                <th>Korisnik</th>
+                <th>Ocena</th>
+                <th>Komentar</th>
+                <th>Datum</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>
+                        @if (r.Proizvod != null)
+                        {
+                            @Html.ActionLink(r.Proizvod.Naziv, "Details", "Proizvodi", new { area = "", id = r.ProizvodId }, null)
+                        }
+                        else
+                        {
+                            <text>—</text>
+                        }
+                    </td>
+                    <td>@(r.Korisnik != null ? (r.Korisnik.FullName ?? r.Korisnik.Email) : "—")</td>
+                    <td>@r.Ocena / 5</td>
+                    <td>@r.Sadrzaj</td>
+                    <td>@r.DatumKreiranja.ToString("dd.MM.yyyy.")</td>
+                    <td>
+                        @using (Html.BeginForm("Obrisi", "AdminRecenzije", new { area = "Admin" }, FormMethod.Post, new { onsubmit = "return confirm('Obrisati recenziju?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@r.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

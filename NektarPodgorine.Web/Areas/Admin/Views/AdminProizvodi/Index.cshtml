@@ -1,0 +1,38 @@
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.Proizvod>
+@{
+    ViewBag.Title = "Proizvodi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Proizvodi</h1>
+    @Html.ActionLink("Novi proizvod", "Create", "Proizvodi", new { area = "" }, new { @class = "btn btn-warning" })
+</div>
+
+@Html.Partial("_AdminMenu")
+
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Kategorija</th>
+            <th>Cena</th>
+            <th>Na stanju</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(p.Naziv, "Details", "Proizvodi", new { area = "", id = p.Id }, null)</td>
+                <td>@(p.Kategorija != null ? p.Kategorija.Naziv : "—")</td>
+                <td>@p.Cena.ToString("0.00") RSD / @p.JedinicaMere</td>
+                <td>@p.KolicinaNaStanju</td>
+                <td class="text-nowrap">
+                    @Html.ActionLink("Izmeni", "Edit", "Proizvodi", new { area = "", id = p.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                    @Html.ActionLink("Obriši", "Delete", "Proizvodi", new { area = "", id = p.Id }, new { @class = "btn btn-sm btn-outline-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

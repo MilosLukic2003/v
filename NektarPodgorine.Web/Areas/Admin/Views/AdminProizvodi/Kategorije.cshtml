@@ -1,0 +1,42 @@
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.KategorijaProizvoda>
+@{
+    ViewBag.Title = "Kategorije";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Kategorije</h1>
+    @Html.ActionLink("Nova kategorija", "KreirajKategoriju", null, new { area = "Admin" }, new { @class = "btn btn-warning" })
+</div>
+
+@Html.Partial("_AdminMenu")
+
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Broj proizvoda</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var k in Model)
+        {
+            var broj = k.Proizvodi != null ? k.Proizvodi.Count : 0;
+            <tr>
+                <td>@k.Naziv</td>
+                <td>@k.Opis</td>
+                <td>@broj</td>
+                <td class="text-nowrap">
+                    @Html.ActionLink("Izmeni", "IzmeniKategoriju", new { area = "Admin", id = k.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                    @using (Html.BeginForm("ObrisiKategoriju", "AdminProizvodi", new { area = "Admin" }, FormMethod.Post, new { @class = "d-inline", onsubmit = "return confirm('Obrisati kategoriju?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@k.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger" @(broj > 0 ? "disabled" : "")>Obriši</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

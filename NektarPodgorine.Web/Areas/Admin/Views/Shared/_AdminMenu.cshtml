@@ -1,0 +1,23 @@
+@{
+    var akcija = ViewContext.RouteData.Values["controller"] + "/" + ViewContext.RouteData.Values["action"];
+}
+
+<ul class="nav nav-pills mb-4">
+    <li class="nav-item">
+        @Html.ActionLink("Korisnici", "Index", "AdminUsers", new { area = "Admin" }, new { @class = "nav-link" + (akcija == "AdminUsers/Index" ? " active" : "") })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Proizvodi", "Index", "AdminProizvodi", new { area = "Admin" }, new { @class = "nav-link" + (akcija == "AdminProizvodi/Index" ? " active" : "") })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Kategorije", "Kategorije", "AdminProizvodi", new { area = "Admin" }, new { @class = "nav-link" + (akcija.StartsWith("AdminProizvodi") && akcija != "AdminProizvodi/Index" ? " active" : "") })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Recenzije", "Index", "AdminRecenzije", new { area = "Admin" }, new { @class = "nav-link" + (akcija == "AdminRecenzije/Index" ? " active" : "") })
+    </li>
+</ul>
+
+@if (TempData["Greska"] != null)
+{
+    <div class="alert alert-warning">@TempData["Greska"]</div>
+}

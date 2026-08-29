@@ -150,6 +150,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminProizvodiController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminRecenzijeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminUsersController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -173,6 +177,7 @@
     <Compile Include="Models\Recenzija.cs" />
     <Compile Include="Models\Vest.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
+    <Compile Include="Models\ViewModels\AdminViewModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ProizvodViewModels.cs" />
     <Compile Include="Models\ViewModels\RecenzijaViewModels.cs" />
@@ -254,6 +259,15 @@
     <Content Include="Views\Vesti\Edit.cshtml" />
     <Content Include="Views\Vesti\Delete.cshtml" />
     <Content Include="Views\Vesti\_VestFields.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminUsers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProizvodi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProizvodi\Kategorije.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProizvodi\KreirajKategoriju.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProizvodi\IzmeniKategoriju.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminRecenzije\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202608280900000_InitialCreate.resx">

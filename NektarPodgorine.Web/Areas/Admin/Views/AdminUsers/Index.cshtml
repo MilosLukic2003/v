@@ -1,0 +1,58 @@
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.ViewModels.AdminKorisnikVM>
+@{
+    ViewBag.Title = "Korisnici";
+}
+
+<h1 class="mb-4">Korisnici</h1>
+
+@Html.Partial("_AdminMenu")
+
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Ime i prezime</th>
+            <th>Telefon</th>
+            <th>Član od</th>
+            <th>Uloga</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var k in Model)
+        {
+            <tr>
+                <td>@k.Email</td>
+                <td>@k.FullName</td>
+                <td>@(string.IsNullOrEmpty(k.PhoneNumber) ? "—" : k.PhoneNumber)</td>
+                <td>@k.CreatedAt.ToString("dd.MM.yyyy.")</td>
+                <td>
+                    @if (k.JeAdmin)
+                    {
+                        <span class="badge bg-warning text-dark">Admin</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Korisnik</span>
+                    }
+                </td>
+                <td class="text-nowrap">
+                    @using (Html.BeginForm("PromeniRolu", "AdminUsers", new { area = "Admin" }, FormMethod.Post, new { @class = "d-inline" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@k.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                            @(k.JeAdmin ? "Skini admina" : "Postavi za admina")
+                        </button>
+                    }
+                    @using (Html.BeginForm("Obrisi", "AdminUsers", new { area = "Admin" }, FormMethod.Post, new { @class = "d-inline", onsubmit = "return confirm('Obrisati nalog?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@k.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

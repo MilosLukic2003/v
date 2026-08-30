@@ -1,0 +1,25 @@
+@model NektarPodgorine.Web.Models.ViewModels.PcelinjakCreateVM
+@{
+    ViewBag.Title = "Novi pčelinjak";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">Novi pčelinjak</h1>
+
+        @using (Html.BeginForm("Create", "Pcelinjaci", FormMethod.Post, new { @class = "card card-body" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Partial("_PcelinjakFields", Model)
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning">Sačuvaj</button>
+                @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,42 @@
+@model System.Collections.Generic.IEnumerable<NektarPodgorine.Web.Models.Pcelinjak>
+@{
+    ViewBag.Title = "Pčelinjaci";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Naši pčelinjaci</h1>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Novi pčelinjak", "Create", null, new { @class = "btn btn-warning" })
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <p>Nema unetih pčelinjaka.</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var p in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@p.Naziv</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@p.Mesto</h6>
+                        <p class="card-text">@(string.IsNullOrEmpty(p.Opis) ? "" : (p.Opis.Length > 160 ? p.Opis.Substring(0, 160) + "…" : p.Opis))</p>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex gap-2">
+                        @Html.ActionLink("Detalji i vreme", "Details", new { id = p.Id }, new { @class = "btn btn-sm btn-outline-dark" })
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Izmeni", "Edit", new { id = p.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                            @Html.ActionLink("Obriši", "Delete", new { id = p.Id }, new { @class = "btn btn-sm btn-outline-danger" })
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

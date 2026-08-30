@@ -162,9 +162,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PcelinjaciController.cs" />
     <Compile Include="Controllers\ProizvodiController.cs" />
     <Compile Include="Controllers\RecenzijeController.cs" />
     <Compile Include="Controllers\VestiController.cs" />
+    <Compile Include="Controllers\VremeController.cs" />
     <Compile Include="Migrations\202608280900000_InitialCreate.cs" />
     <Compile Include="Migrations\202608280900000_InitialCreate.Designer.cs">
       <DependentUpon>202608280900000_InitialCreate.cs</DependentUpon>
@@ -176,12 +178,15 @@
     <Compile Include="Models\Proizvod.cs" />
     <Compile Include="Models\Recenzija.cs" />
     <Compile Include="Models\Vest.cs" />
+    <Compile Include="Models\VremeInfo.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ViewModels\AdminViewModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\PcelinjakViewModels.cs" />
     <Compile Include="Models\ViewModels\ProizvodViewModels.cs" />
     <Compile Include="Models\ViewModels\RecenzijaViewModels.cs" />
     <Compile Include="Models\ViewModels\VestViewModels.cs" />
+    <Compile Include="Services\WeatherApiService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,6 +264,12 @@
     <Content Include="Views\Vesti\Edit.cshtml" />
     <Content Include="Views\Vesti\Delete.cshtml" />
     <Content Include="Views\Vesti\_VestFields.cshtml" />
+    <Content Include="Views\Pcelinjaci\Index.cshtml" />
+    <Content Include="Views\Pcelinjaci\Details.cshtml" />
+    <Content Include="Views\Pcelinjaci\Create.cshtml" />
+    <Content Include="Views\Pcelinjaci\Edit.cshtml" />
+    <Content Include="Views\Pcelinjaci\Delete.cshtml" />
+    <Content Include="Views\Pcelinjaci\_PcelinjakFields.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminMenu.cshtml" />

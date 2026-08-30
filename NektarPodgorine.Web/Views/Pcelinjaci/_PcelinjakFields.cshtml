@@ -1,0 +1,35 @@
+@model NektarPodgorine.Web.Models.ViewModels.PcelinjakCreateVM
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Naziv, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.Naziv, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Naziv, "", new { @class = "text-danger" })
+</div>
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Mesto, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.Mesto, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Mesto, "", new { @class = "text-danger" })
+</div>
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Opis, new { @class = "form-label" })
+    @Html.TextAreaFor(m => m.Opis, new { @class = "form-control", rows = 3 })
+    @Html.ValidationMessageFor(m => m.Opis, "", new { @class = "text-danger" })
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(m => m.GeografskaSirina, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.GeografskaSirina, new { @class = "form-control", type = "number", step = "any" })
+        @Html.ValidationMessageFor(m => m.GeografskaSirina, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(m => m.GeografskaDuzina, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.GeografskaDuzina, new { @class = "form-control", type = "number", step = "any" })
+        @Html.ValidationMessageFor(m => m.GeografskaDuzina, "", new { @class = "text-danger" })
+    </div>
+</div>
+<p class="form-text">Koordinate se koriste za prikaz vremenske prognoze na pčelinjaku.</p>

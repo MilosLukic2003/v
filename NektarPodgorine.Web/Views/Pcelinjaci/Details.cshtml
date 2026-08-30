@@ -1,0 +1,61 @@
+@model NektarPodgorine.Web.Models.Pcelinjak
+@{
+    ViewBag.Title = Model.Naziv;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">@Html.ActionLink("Pčelinjaci", "Index")</li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Naziv</li>
+    </ol>
+</nav>
+
+<h1>@Model.Naziv</h1>
+<p class="text-muted">@Model.Mesto</p>
+
+@if (!string.IsNullOrEmpty(Model.Opis))
+{
+    <p>@Model.Opis</p>
+}
+
+<p class="text-muted">
+    <small>Koordinate: @Model.GeografskaSirina.ToString(System.Globalization.CultureInfo.InvariantCulture), @Model.GeografskaDuzina.ToString(System.Globalization.CultureInfo.InvariantCulture)</small>
+</p>
+
+<div class="card card-body my-4" id="vreme" data-pcelinjak="@Model.Id">
+    <h2 class="h5">Vreme na pčelinjaku danas</h2>
+    <div id="vreme-sadrzaj" class="d-flex align-items-center gap-2">Učitavanje…</div>
+</div>
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="d-flex gap-2">
+        @Html.ActionLink("Izmeni", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
+        @Html.ActionLink("Obriši", "Delete", new { id = Model.Id }, new { @class = "btn btn-outline-danger" })
+    </div>
+}
+
+@section scripts {
+    <script>
+        (function () {
+            var box = document.getElementById('vreme');
+            var out = document.getElementById('vreme-sadrzaj');
+
+            fetch('@Url.Action("Trenutno", "Vreme")?pcelinjakId=' + box.dataset.pcelinjak)
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (d.greska) {
+                        out.textContent = d.greska;
+                        return;
+                    }
+                    out.innerHTML =
+                        '<img src="https://openweathermap.org/img/wn/' + d.ikonica + '@@2x.png" alt="" width="50" height="50">' +
+                        '<span><strong>' + d.temperatura + ' °C</strong>, ' + d.opis +
+                        ' &middot; vlažnost ' + d.vlaznost + '% &middot; vetar ' + d.vetar + ' m/s</span>';
+                })
+                .catch(function () {
+                    out.textContent = 'Prognoza trenutno nije dostupna.';
+                });
+        })();
+    </script>
+}

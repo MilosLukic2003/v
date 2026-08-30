@@ -1,0 +1,25 @@
+@model NektarPodgorine.Web.Models.Pcelinjak
+@{
+    ViewBag.Title = "Brisanje pčelinjaka";
+}
+
+<h1 class="mb-4">Brisanje pčelinjaka</h1>
+
+<div class="alert alert-danger">Da li ste sigurni da želite da obrišete ovaj pčelinjak?</div>
+
+<dl class="row">
+    <dt class="col-sm-2">Naziv</dt>
+    <dd class="col-sm-10">@Model.Naziv</dd>
+
+    <dt class="col-sm-2">Mesto</dt>
+    <dd class="col-sm-10">@Model.Mesto</dd>
+</dl>
+
+@using (Html.BeginForm("Delete", "Pcelinjaci", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">Obriši</button>
+        @Html.ActionLink("Odustani", "Details", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
+    </div>
+}

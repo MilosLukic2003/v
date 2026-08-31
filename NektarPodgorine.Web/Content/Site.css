@@ -1,20 +1,156 @@
-﻿/* Set padding to keep content from hitting the edges */
+:root {
+    --med: #e8a317;
+    --med-tamna: #c8860d;
+    --drvo: #4e342e;
+    --drvo-svetla: #6d4c41;
+    --livada: #7cb342;
+    --krem: #fdf6e9;
+    --tekst: #2b2118;
+}
+
+body {
+    background-color: var(--krem);
+    color: var(--tekst);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .body-content {
-    margin-top: 15px;
+    flex: 1 0 auto;
+    margin-top: 24px;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+a {
+    color: var(--drvo-svetla);
+    text-decoration: none;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+a:hover {
+    color: var(--med-tamna);
+}
+
+h1, h2, h3, h4 {
+    color: var(--drvo);
+}
+
+.navbar-nektar {
+    background-color: var(--drvo);
+}
+
+.navbar-nektar .navbar-brand {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+.navbar-nektar .nav-link {
+    color: #efe3d3;
+}
+
+.navbar-nektar .nav-link:hover,
+.navbar-nektar .nav-link.show,
+.navbar-nektar .dropdown-item:active {
+    color: var(--med);
+}
+
+.dropdown-menu {
+    border-color: #ecdcc0;
+}
+
+.btn-warning {
+    --bs-btn-bg: var(--med);
+    --bs-btn-border-color: var(--med);
+    --bs-btn-color: #fff;
+    --bs-btn-hover-bg: var(--med-tamna);
+    --bs-btn-hover-border-color: var(--med-tamna);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-bg: var(--med-tamna);
+    --bs-btn-active-border-color: var(--med-tamna);
+    --bs-btn-active-color: #fff;
+}
+
+.btn-outline-dark {
+    --bs-btn-color: var(--drvo);
+    --bs-btn-border-color: var(--drvo-svetla);
+    --bs-btn-hover-bg: var(--drvo);
+}
+
+.hero {
+    background:
+        linear-gradient(rgba(40, 26, 22, .5), rgba(40, 26, 22, .68)),
+        url('../Images/kosnica.jpeg') center/cover no-repeat,
+        var(--drvo);
+    color: #fff;
+    border-radius: .75rem;
+    padding: 5rem 2rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+}
+
+.hero .lead {
+    max-width: 640px;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .4);
+}
+
+.section-naslov {
+    border-bottom: 3px solid var(--med);
+    display: inline-block;
+    padding-bottom: .25rem;
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    border-color: #ecdcc0;
+}
+
+.card-img-top {
+    background-color: #f3e7d0;
+}
+
+.navbar-nektar .navbar-brand img {
+    max-height: 50px;
+    width: auto;
+}
+
+.site-footer {
+    flex-shrink: 0;
+    background-color: var(--drvo);
+    color: #e5d8c6;
+    margin-top: 3rem;
+    padding: 2.5rem 0 1.5rem;
+}
+
+.site-footer h5 {
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.site-footer a {
+    color: var(--med);
+}
+
+.site-footer .footer-donji {
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    font-size: .9rem;
+}
+
+.breadcrumb a {
+    color: var(--drvo-svetla);
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding: 3rem 1.25rem;
+    }
 }

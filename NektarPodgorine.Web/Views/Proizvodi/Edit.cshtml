@@ -7,10 +7,19 @@
     <div class="col-md-8">
         <h1 class="mb-4">Izmena proizvoda</h1>
 
-        @using (Html.BeginForm("Edit", "Proizvodi", FormMethod.Post, new { @class = "card card-body" }))
+        @using (Html.BeginForm("Edit", "Proizvodi", FormMethod.Post, new { @class = "card card-body", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Id)
+
+            if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="mb-3">
+                    <span class="form-label d-block">Trenutna slika</span>
+                    <img src="@Model.ImageUrl" alt="" style="max-height:140px;" class="rounded border" />
+                </div>
+            }
+
             @Html.Partial("_ProizvodFields", (NektarPodgorine.Web.Models.ViewModels.ProizvodCreateVM)Model)
 
             <div class="d-flex gap-2">

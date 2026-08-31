@@ -3,48 +3,83 @@
     ViewBag.Title = "Početna";
 }
 
-<div class="p-5 mb-4 bg-light rounded-3">
+<div class="hero">
     <h1>Pčelarsko gazdinstvo „Nektar Podgorine"</h1>
     <p class="lead">
         Prirodan med i pčelinji proizvodi sa pčelinjaka u Podgorini. Bagremov i livadski med,
-        propolis, polen i matičnji mleč — direktno od pčelara.
+        propolis, polen i matičnji mleč — direktno od pčelara, iz sopstvene proizvodnje.
     </p>
-    <p>
-        @Html.ActionLink("Pogledaj proizvode", "Index", "Proizvodi", null, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Naši pčelinjaci", "Index", "Pcelinjaci", null, new { @class = "btn btn-outline-dark" })
-    </p>
+    <div class="d-flex flex-wrap gap-2">
+        @Html.ActionLink("Pogledaj proizvode", "Index", "Proizvodi", null, new { @class = "btn btn-warning btn-lg" })
+        @Html.ActionLink("Naši pčelinjaci", "Index", "Pcelinjaci", null, new { @class = "btn btn-outline-light btn-lg" })
+    </div>
 </div>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Najnovije iz gazdinstva</h2>
-    @Html.ActionLink("Sve vesti", "Index", "Vesti")
-</div>
-
-@if (!Model.Any())
-{
-    <p>Još nema objavljenih vesti.</p>
-}
-else
-{
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (var vest in Model)
-        {
-            <div class="col">
-                <div class="card h-100">
-                    @if (!string.IsNullOrEmpty(vest.ImageUrl))
-                    {
-                        <img src="@vest.ImageUrl" class="card-img-top" alt="@vest.Naslov" style="height:160px;object-fit:cover;" />
-                    }
-                    <div class="card-body">
-                        <h5 class="card-title">@vest.Naslov</h5>
-                        <p class="card-text text-muted"><small>@vest.DatumObjave.ToString("dd.MM.yyyy.")</small></p>
-                        <p class="card-text">@(vest.Sadrzaj.Length > 140 ? vest.Sadrzaj.Substring(0, 140) + "…" : vest.Sadrzaj)</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        @Html.ActionLink("Pročitaj više", "Details", "Vesti", new { id = vest.Id }, new { @class = "btn btn-sm btn-outline-dark" })
-                    </div>
+<section class="mb-5">
+    <h2 class="section-naslov">O gazdinstvu</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="~/Images/med.jpeg" alt="Tegla meda" class="card-img-top" style="height:220px;object-fit:cover;" />
+                <div class="card-body">
+                    <h3 class="h5">Domaći med</h3>
+                    <p class="mb-0">Bagremov, livadski i cvetni med iz vrcanja bez zagrevanja i filtriranja.</p>
                 </div>
             </div>
-        }
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="~/Images/kosnica.jpeg" alt="Pčelinjak" class="card-img-top" style="height:220px;object-fit:cover;" />
+                <div class="card-body">
+                    <h3 class="h5">Naši pčelinjaci</h3>
+                    <p class="mb-0">Košnice na pašnjacima i voćnjacima u okolini Valjeva, dalje od saobraćaja.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="~/Images/medovaca.jpeg" alt="Medovača" class="card-img-top" style="height:220px;object-fit:cover;" />
+                <div class="card-body">
+                    <h3 class="h5">Medovača i drugo</h3>
+                    <p class="mb-0">Prirodna medovača, propolis, polen i matičnji mleč iz sopstvene proizvodnje.</p>
+                </div>
+            </div>
+        </div>
     </div>
-}
+</section>
+
+<section>
+    <div class="d-flex justify-content-between align-items-end mb-3">
+        <h2 class="section-naslov mb-0">Najnovije iz gazdinstva</h2>
+        @Html.ActionLink("Sve vesti", "Index", "Vesti")
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p>Još nema objavljenih vesti.</p>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var vest in Model)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        @if (!string.IsNullOrEmpty(vest.ImageUrl))
+                        {
+                            <img src="@vest.ImageUrl" class="card-img-top" alt="@vest.Naslov" style="height:160px;object-fit:cover;" />
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@vest.Naslov</h5>
+                            <p class="card-text text-muted"><small>@vest.DatumObjave.ToString("dd.MM.yyyy.")</small></p>
+                            <p class="card-text">@(vest.Sadrzaj.Length > 140 ? vest.Sadrzaj.Substring(0, 140) + "…" : vest.Sadrzaj)</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            @Html.ActionLink("Pročitaj više", "Details", "Vesti", new { id = vest.Id }, new { @class = "btn btn-sm btn-outline-dark" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

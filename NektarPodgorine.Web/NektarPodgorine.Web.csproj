@@ -211,6 +211,13 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Images\logo.jpeg" />
+    <Content Include="Images\med.jpeg" />
+    <Content Include="Images\med2.jpeg" />
+    <Content Include="Images\kosnica.jpeg" />
+    <Content Include="Images\medovaca.jpeg" />
+    <Content Include="Images\propolis.jpeg" />
+    <Content Include="Images\propilis kapi.jpeg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />

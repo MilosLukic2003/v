@@ -7,7 +7,7 @@
     <div class="col-md-8">
         <h1 class="mb-4">Novi proizvod</h1>
 
-        @using (Html.BeginForm("Create", "Proizvodi", FormMethod.Post, new { @class = "card card-body" }))
+        @using (Html.BeginForm("Create", "Proizvodi", FormMethod.Post, new { @class = "card card-body", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.Partial("_ProizvodFields", Model)

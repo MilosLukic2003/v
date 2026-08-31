@@ -51,6 +51,11 @@ namespace NektarPodgorine.Web.Migrations
 
             context.SaveChanges();
 
+            if (context.Kategorije.Any())
+            {
+                return;
+            }
+
             context.Kategorije.AddOrUpdate(
                 k => k.Naziv,
                 new KategorijaProizvoda { Naziv = "Med", Opis = "Razne vrste meda sa pčelinjaka gazdinstva." },

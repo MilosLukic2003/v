@@ -1,5 +1,6 @@
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -65,6 +66,8 @@ namespace NektarPodgorine.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProizvodCreateVM model)
         {
+            var putanjaSlike = SacuvajSliku(model.Slika);
+
             if (!ModelState.IsValid)
             {
                 PopuniKategorije(model.KategorijaId);
@@ -78,7 +81,7 @@ namespace NektarPodgorine.Web.Controllers
                 Cena = model.Cena,
                 JedinicaMere = model.JedinicaMere,
                 KolicinaNaStanju = model.KolicinaNaStanju,
-                ImageUrl = model.ImageUrl,
+                ImageUrl = putanjaSlike ?? model.ImageUrl,
                 KategorijaId = model.KategorijaId,
                 DatumDodavanja = DateTime.Now,
                 KreiraoId = User.Identity.GetUserId()
@@ -124,6 +127,8 @@ namespace NektarPodgorine.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProizvodEditVM model)
         {
+            var putanjaSlike = SacuvajSliku(model.Slika);
+
             if (!ModelState.IsValid)
             {
                 PopuniKategorije(model.KategorijaId);
@@ -141,7 +146,7 @@ namespace NektarPodgorine.Web.Controllers
             proizvod.Cena = model.Cena;
             proizvod.JedinicaMere = model.JedinicaMere;
             proizvod.KolicinaNaStanju = model.KolicinaNaStanju;
-            proizvod.ImageUrl = model.ImageUrl;
+            proizvod.ImageUrl = putanjaSlike ?? model.ImageUrl;
             proizvod.KategorijaId = model.KategorijaId;
 
             Db.SaveChanges();
@@ -188,6 +193,36 @@ namespace NektarPodgorine.Web.Controllers
         private void PopuniKategorije(int? izabrana = null)
         {
             ViewBag.Kategorije = new SelectList(Db.Kategorije.OrderBy(k => k.Naziv).ToList(), "Id", "Naziv", izabrana);
+        }
+
+        private string SacuvajSliku(HttpPostedFileBase slika)
+        {
+            if (slika == null || slika.ContentLength == 0)
+            {
+                return null;
+            }
+
+            var dozvoljene = new[] { ".jpg", ".jpeg", ".png", ".webp", ".gif" };
+            var ekstenzija = Path.GetExtension(slika.FileName ?? string.Empty).ToLowerInvariant();
+            if (!dozvoljene.Contains(ekstenzija))
+            {
+                ModelState.AddModelError("Slika", "Dozvoljene su samo slike (jpg, png, webp, gif).");
+                return null;
+            }
+
+            if (slika.ContentLength > 5 * 1024 * 1024)
+            {
+                ModelState.AddModelError("Slika", "Slika ne sme biti veća od 5 MB.");
+                return null;
+            }
+
+            var folder = Server.MapPath("~/Images/proizvodi");
+            Directory.CreateDirectory(folder);
+
+            var ime = Guid.NewGuid().ToString("N") + ekstenzija;
+            slika.SaveAs(Path.Combine(folder, ime));
+
+            return "/Images/proizvodi/" + ime;
         }
     }
 }

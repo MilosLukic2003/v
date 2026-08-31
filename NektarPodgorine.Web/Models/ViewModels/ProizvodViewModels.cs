@@ -1,9 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace NektarPodgorine.Web.Models.ViewModels
 {
     public class ProizvodCreateVM
     {
+        [Display(Name = "Slika sa računara")]
+        public HttpPostedFileBase Slika { get; set; }
+
         [Required(ErrorMessage = "Naziv je obavezan.")]
         [StringLength(150)]
         [Display(Name = "Naziv")]

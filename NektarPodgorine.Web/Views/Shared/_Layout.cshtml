@@ -9,9 +9,11 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark navbar-nektar">
             <div class="container">
-                @Html.ActionLink("Nektar Podgorine", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand py-1" href="@Url.Action("Index", "Home", new { area = "" })">
+                    <img src="~/Images/logo.jpeg" alt="Nektar Podgorine" height="50" class="rounded" />
+                </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#glavniMeni"
                         aria-controls="glavniMeni" aria-expanded="false" aria-label="Prikaži/sakrij navigaciju">
                     <span class="navbar-toggler-icon"></span>
@@ -43,11 +45,36 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Pčelarsko gazdinstvo "Nektar Podgorine"</p>
-        </footer>
     </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5>Nektar Podgorine</h5>
+                    <p class="mb-0">Porodično pčelarsko gazdinstvo Jelene i Vlada Lukića iz okoline Valjeva. Med i pčelinji proizvodi iz sopstvene proizvodnje, bez dodataka.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Kontakt</h5>
+                    <p class="mb-1">Podgorina, 14000 Valjevo</p>
+                    <p class="mb-1">Tel: <a href="tel:+381641234567">+381 64 123 4567</a></p>
+                    <p class="mb-1">E-mail: <a href="mailto:info@nektarpodgorine.rs">info@nektarpodgorine.rs</a></p>
+                    <p class="mb-0">Radno vreme: pon–sub, 08–18h</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Brzi linkovi</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>@Html.ActionLink("Proizvodi", "Index", "Proizvodi", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Vesti", "Index", "Vesti", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Pčelinjaci", "Index", "Pcelinjaci", new { area = "" }, null)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-donji text-center">
+                &copy; @DateTime.Now.Year Pčelarsko gazdinstvo „Nektar Podgorine"
+            </div>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

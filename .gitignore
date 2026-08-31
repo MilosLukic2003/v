@@ -22,6 +22,9 @@ packages/
 App_Data/*.mdf
 App_Data/*.ldf
 
+# Slike koje korisnici otpreme kroz aplikaciju
+NektarPodgorine.Web/Images/proizvodi/
+
 # OS
 Thumbs.db
 desktop.ini

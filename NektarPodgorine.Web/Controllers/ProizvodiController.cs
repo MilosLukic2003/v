@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using NektarPodgorine.Web.Infrastructure;
 using NektarPodgorine.Web.Models;
 using NektarPodgorine.Web.Models.ViewModels;
 
@@ -54,7 +55,7 @@ namespace NektarPodgorine.Web.Controllers
             return View(proizvod);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Autorizacija(Roles = "Admin")]
         public ActionResult Create()
         {
             PopuniKategorije();
@@ -62,7 +63,7 @@ namespace NektarPodgorine.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Autorizacija(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProizvodCreateVM model)
         {
@@ -93,7 +94,7 @@ namespace NektarPodgorine.Web.Controllers
             return RedirectToAction("Details", new { id = proizvod.Id });
         }
 
-        [Authorize(Roles = "Admin")]
+        [Autorizacija(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -123,7 +124,7 @@ namespace NektarPodgorine.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Autorizacija(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProizvodEditVM model)
         {
@@ -154,7 +155,7 @@ namespace NektarPodgorine.Web.Controllers
             return RedirectToAction("Details", new { id = proizvod.Id });
         }
 
-        [Authorize(Roles = "Admin")]
+        [Autorizacija(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -176,7 +177,7 @@ namespace NektarPodgorine.Web.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
-        [Authorize(Roles = "Admin")]
+        [Autorizacija(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

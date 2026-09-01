@@ -159,7 +159,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Infrastructure\AutorizacijaAttribute.cs" />
+    <Compile Include="Infrastructure\ValidacijaTokenaZaPost.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GreskaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PcelinjaciController.cs" />
@@ -247,6 +250,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Greska\Index.cshtml" />
+    <Content Include="Views\Greska\NijePronadjeno.cshtml" />
+    <Content Include="Views\Greska\Zabranjeno.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\About.cshtml" />

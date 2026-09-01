@@ -3,12 +3,13 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using NektarPodgorine.Web.Infrastructure;
 using NektarPodgorine.Web.Models;
 using NektarPodgorine.Web.Models.ViewModels;
 
 namespace NektarPodgorine.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Autorizacija(Roles = "Admin")]
     public class AdminUsersController : Controller
     {
         private ApplicationDbContext Db
